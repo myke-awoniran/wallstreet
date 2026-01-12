@@ -24,11 +24,18 @@ std::vector<OrderBookEntry> CSVReader::readCSVFile(const std::string& csvFilePat
         }
         while (std::getline(csvFile, line))
         {
-            entries.push_back(stringsToOrderBookEntry(tokenise(line, delimiter)));
+            try
+            {
+                entries.push_back(stringsToOrderBookEntry(tokenise(line, delimiter)));
+            }
+            catch (const std::exception& e)
+            {
+                std::cout << "CSVReader::readCSVFile: Bad data" << line << std::endl;
+            }
         }
         csvFile.close();
 
-        std::cout << "CSVReader::readCSVFile " << entries.size() << " entries" << std::endl;
+        // std::cout << "CSVReader::readCSVFile " << entries.size() << " entries" << std::endl;
         return entries;
     }
     catch (const std::exception& e)
@@ -57,7 +64,7 @@ std::vector<std::string> CSVReader::tokenise(const std::string& csvLine, char de
         start = end + 1;
     }
     while (end > 0);
-    std::cout << "CSVReader::tokenise " << tokens.size() << " tokens" << std::endl;
+    // std::cout << "CSVReader::tokenise " << tokens.size() << " tokens" << std::endl;
 
     return tokens;
 }

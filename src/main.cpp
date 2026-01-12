@@ -3,8 +3,7 @@
 
 int main()
 {
-    // Services app{};
-    // app.init();
-    CSVReader::readCSVFile("../data/test_data.csv");
+    Services app{};
+    app.init();
     return 0;
 }

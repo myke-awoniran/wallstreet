@@ -1,5 +1,6 @@
 #include "iostream"
 #include "Services.h"
+#include "CSVReader.h"
 #include "OrderBookEntry.h"
 
 Services::Services()
@@ -44,14 +45,28 @@ int Services::getUserOption()
 
 void Services::loadOrderBook()
 {
-    orders.emplace_back(
-        1000, 0.02, "2020-01-01", "BTC/USDT", OrderBookType::ASK
-    );
+    orders = CSVReader::readCSVFile("../data/test_data.csv");
 }
 
 void Services::printExchangeStats()
 {
     std::cout << "Order Book contains " << orders.size() << " entries" << std::endl;
+    unsigned int asks = 0;
+    unsigned int bids = 0;
+
+    for (OrderBookEntry& e : orders)
+    {
+        if (e.orderType == OrderBookType::ASK)
+        {
+            asks++;
+        }
+        else if (e.orderType == OrderBookType::BID)
+        {
+            bids++;
+        }
+    }
+
+    std::cout << "Order book has " << asks << " asks and " << bids << " bids" << std::endl;
 }
 
 void Services::printWallet()
