@@ -38,30 +38,31 @@ std::vector<OrderBookEntry> CSVReader::readCSVFile(const std::string& csvFilePat
 };
 
 
-std::vector<std::string> CSVReader::tokenise(const std::string& csvLine, char separator)
+std::vector<std::string> CSVReader::tokenise(const std::string& csvLine, char delimiter)
 {
     std::vector<std::string> tokens;
     signed int end;
     std::string token;
-    signed int start = csvLine.find_first_not_of(separator, 0);
+    signed int start = csvLine.find_first_not_of(delimiter, 0);
 
     do
     {
-        end = csvLine.find_first_of(separator, start);
+        end = csvLine.find_first_of(delimiter, start);
         if (start == end || end == csvLine.length()) break;
 
         if (end >= 0)token = csvLine.substr(start, end - start);
         else token = csvLine.substr(start, csvLine.length() - start);
 
-        token.push_back(token.back());
+        tokens.push_back(token);
         start = end + 1;
     }
     while (end > 0);
+    std::cout << "CSVReader::tokenise " << tokens.size() << " tokens" << std::endl;
 
     return tokens;
 }
 
-OrderBookEntry CSVReader::stringsToOrderBookEntry(std::vector<std::string> tokens)
+OrderBookEntry CSVReader::stringsToOrderBookEntry(const std::vector<std::string>& tokens)
 {
     double price, amount;
     if (tokens.size() != 5)
