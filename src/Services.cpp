@@ -45,7 +45,7 @@ int Services::getUserOption()
 void Services::loadOrderBook()
 {
     orders.emplace_back(
-        1000, 0.02, "2020-01-01", "BTC/USDT", OrderType::ASK
+        1000, 0.02, "2020-01-01", "BTC/USDT", OrderBookType::ASK
     );
 }
 
