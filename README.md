@@ -1,12 +1,10 @@
-# Trading Simulator (Order Book Engine)
+# Trading Simulator::Wallstreet
 
 A high-performance **limit order book (LOB)** and **matching engine simulator** for crypto-style markets, built for
 learning market microstructure, replaying historical data, and experimenting with matching algorithms.
 
 This project simulates how exchanges process **bids**, **asks**, and **order matching**, producing trades, updated
 books, and market data outputs from raw CSV tick/order updates.
-
----
 
 ## Features
 
